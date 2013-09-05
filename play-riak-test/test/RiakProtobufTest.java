@@ -16,8 +16,7 @@ import com.basho.riak.pbc.RiakObject;
 import com.basho.riak.pbc.mapreduce.MapReduceResponse;
 import com.google.protobuf.ByteString;
 
-
-public class RiakPbTest extends UnitTest{
+public class RiakProtobufTest extends UnitTest {
 
 	@Test
 	public void doSomethingWitkClient(){

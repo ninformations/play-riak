@@ -1,0 +1,13 @@
+# Application dependencies
+
+require:
+    - play
+    - play-riak -> play-riak
+    - junit -> junit 4.11
+        
+repositories:    
+    - My local modules:
+        type:       local
+        artifact:   ${application.path}/../../[module]
+        contains:
+            - play-riak

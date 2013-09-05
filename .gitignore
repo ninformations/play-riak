@@ -2,8 +2,11 @@ bin
 eclipse
 .classpath
 .project
+.settings
 dist
 lib/play-riak.jar
 play-riak-test/cobertura.ser
 play-riak-test/test-result
 play-riak-test/tmp
+/tmp
+/lib

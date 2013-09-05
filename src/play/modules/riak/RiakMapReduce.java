@@ -16,6 +16,7 @@ import com.google.protobuf.ByteString;
 
 import play.Logger;
 import play.Play;
+import play.vfs.VirtualFile;
 
 public class RiakMapReduce {
 	
@@ -23,12 +24,10 @@ public class RiakMapReduce {
 	
 	
 	public static void loadQuery(){
-		
-		String rootPath = Play.modules.get("riak").getRealFile().getAbsolutePath() + "/src/play/modules/riak/mapreduce";
-		Logger.debug("Load script in %s", rootPath);
-		//load core directory (play.modules.riak.mapreduce)
-		//TODO: and custom define in riak.mapreduce.input
-		File dir = new File(rootPath);
+
+		VirtualFile vf = Play.getVirtualFile("/src/play/modules/riak/mapreduce");
+		File dir = vf.getRealFile();
+		Logger.debug("mapreduce root = %s", dir.getAbsolutePath());
 		
 		if(!dir.exists()){
 			Logger.info("Dir play.modules.riak.mapreduce not exist" );
@@ -43,17 +42,15 @@ public class RiakMapReduce {
 			String cleanFileName = "";
 			
 			if(file.endsWith(".js")){
-				content = getJavascriptfile(rootPath + "/" + file);
+				content = getJavascriptfile(dir.getAbsolutePath() + "/" + file);
 				cleanFileName = file.substring(0, file.length() - ".js".length());
-			}else if(file.endsWith(".coffee")){
-				content = getCoffeeFile(rootPath + "/" + file);
-				cleanFileName = file.substring(0, file.length() - ".coffee".length());
 			}
 			
 			if(!content.isEmpty()){
 				function.put(cleanFileName, content);
 			}
 		}
+
 	}
 	
 	
@@ -69,7 +66,7 @@ public class RiakMapReduce {
 			return "";
 		}		
 	}
-	
+/*	
     private static String getCoffeeFile(String filename) {
         try {
             //File file = new File(filename + ".coffee");
@@ -82,7 +79,7 @@ public class RiakMapReduce {
             return "";
         }
     }
-
+*/
 	public static long count(Class clazz){
 		
 		MapReduceBuilder builder = new MapReduceBuilder();
